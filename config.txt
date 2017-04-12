@@ -1,0 +1,38 @@
+66.235.67.5
+
+20:e4:16:00:0e:a6
+
+
+marker coordinates : 
+
+lat : 48.015519022615955, -122.53999879148671
+
+lon : 
+
+
+down the ramp coordinates ( 3 ft)
+lat :
+lon : 
+
+laptop ip : 10.3.33.86
+
+rpi ip : 10.3.33.16
+
+
+ssid : NBBB
+password : N!CH0L$B04T$!
+
+ssid NBBB-INTERNET-ONLY
+password : nicholsboats
+
+
+command to list all devices on network 
+
+sudo arp-scan --interface=wlp3s0f0 --localnet
+
+base coordinates : 
+
+latitude : 48.0157122843
+longitude : -122.540528966
+height : -14.2248752791
+
