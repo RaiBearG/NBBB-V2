@@ -127,6 +127,8 @@ def main():
 	
 	#find m and b values for reference ine
 	fit = np.polyfit(lon, lat, 1)
+	print (fit[0])
+	print (fit[1])
 	print ("got reference line")
 	
 	#open udp socket 
