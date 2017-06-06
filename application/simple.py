@@ -24,18 +24,32 @@ import argparse, time
 def main():
   parser = argparse.ArgumentParser(description="Swift Navigation SBP Example.")
   parser.add_argument("-p", "--port",
-                      default=['/dev/ttyACM0'], nargs=1,
+                      default=['/dev/ttyUSB2'], nargs=1,
                       help="specify the serial port to use.")
   args = parser.parse_args()
 
+  start = time.time()
+  pos = 0
+  imu = 0
+
   # Open a connection to Piksi using the default baud rate (1Mbaud)
-  with PySerialDriver(args.port[0], baud=1000000) as driver:
+  with PySerialDriver(args.port[0], baud=115200) as driver:
     with Handler(Framer(driver.read, None, verbose=True)) as source:
       try:
-        for msg, metadata in source.filter(SBP_MSG_IMU_RAW):
-          # Print out the N, E, D coordinates of the baseline
-          print "%.9f,%.9f,%.4f" % (msg.acc_x , msg.acc_y , msg.acc_z )
-          #time.sleep(1)
+        for msg, metadata in source:
+        	diff = time.time()-start
+
+        	if msg.msg_type == 2304:
+        		imu = msg.acc_x
+        	if msg.msg_type == 522:
+        		pos = msg.lat, msg.lon, msg.flags, msg.n_sats
+        	if diff>2:
+        		data = pos, imu
+        		print data
+        		start = time.time()
+
+
+
       except KeyboardInterrupt:
         pass
 
