@@ -42,9 +42,9 @@ def main():
         	if msg.msg_type == 2304:
         		imu = msg.acc_x
         	if msg.msg_type == 522:
-        		pos = msg.lat, msg.lon, msg.flags, msg.n_sats
+        		pos = msg.lat, msg.lon, msg.flags, msg.n_sats, imu
         	if diff>2:
-        		data = pos, imu
+        		data = pos
         		print data
         		start = time.time()
 
