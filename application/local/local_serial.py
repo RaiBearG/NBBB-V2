@@ -8,7 +8,7 @@ baud_rate = 115200
 #m and b values of front yard found using tools/line_parameters.py
 m = 2.2781413734
 b = 327.1789596583
-height = 50 #height of the device in ft 
+#height = 0 #height of the device in ft 
 
 
 def find_point(m, b, x, y):
@@ -51,6 +51,7 @@ def main():
 
 	try:
 		time.sleep(2)
+		height = input('Enter the height of the GPS from ground in ft : ')
 		while True:
 			msg = ser.readline()
 			
@@ -60,55 +61,58 @@ def main():
 					#print (ind, val)
 					if (val == ','):
 						commas.append(int(ind))
+				if len(commas) == 4:
 
-				lat = float(msg[1:(commas[0])])
+					lat = float(msg[1:(commas[0])])
+					
+					lon = float(msg[(commas[0]+2):(commas[1])])
+					
+					status = int(msg[(commas[1]+2)])
+					
+					sats = int(msg[(commas[2]+2):(commas[3])])
 				
-				lon = float(msg[(commas[0]+2):(commas[1])])
-				
-				status = int(msg[(commas[1]+2)])
-				
-				sats = int(msg[(commas[2]+2):(commas[3])])
-			
-				imu = int(msg[(commas[3]+2):-2])
-				
-				tilt = float(abs(imu/70.0))
-				
+					imu = int(msg[(commas[3]+2):-2])
+					
+					tilt = float(abs(imu/70.0))
+					
 
-				
-				linepoint = find_point(m, b, lon, lat)
-				dist = distance(lat, lon, linepoint[0], linepoint[1])
-				if lon<linepoint[1]:
-					dist = dist*-1
-				howfarout = distance(48.015530027273954, -122.53999350346919, lat, lon)
-				howfarout = abs(pow(dist,2)-pow(howfarout,2))
-				howfarout = (math.sqrt(howfarout))/12
+					
+					linepoint = find_point(m, b, lon, lat)
+					dist = distance(lat, lon, linepoint[0], linepoint[1])
+					if lon<linepoint[1]:
+						dist = dist*-1
+					howfarout = distance(48.015409967799, -122.540046375689, lat, lon)
+					howfarout = abs(pow(dist,2)-pow(howfarout,2))
+					howfarout = (math.sqrt(howfarout))/12
+					if lat < 48.015409967799:
+						howfarout = howfarout * -1
 
-				tilterror = height * math.tan(tilt*math.pi/180.0) * 12
-				print tilterror
-				if imu<0:
-					direction = 'right'
-					dist = dist - tilterror
-				else:
-					direction = 'left'
-					dist = dist + tilterror
-					#printing stuff
-				print "***"
-				print "Dist from center: %f inches" %  dist
-				print "%f ft out from ramp's start" % howfarout
-				if status == 0:
-					fix = "no fix"
-				elif status == 1:
-					fix = "single point"
-				elif status == 2:
-					fix = "DGPS"
-				elif status == 3:
-					fix = "Float RTK"
-				elif status == 4:
-					fix = "fixed RTK"
-				print "Fix : %s  Sattelites : %d" % (fix, sats)
-				print "lat: %f  lon: %f" % (lat, lon)
-				print "Tilted %.2f degrees to the %s" % (tilt, direction)
-				print "***"
+					tilterror = height * math.tan(tilt*math.pi/180.0) * 12
+
+					if imu<0:
+						direction = 'right'
+						dist = dist - tilterror
+					else:
+						direction = 'left'
+						dist = dist + tilterror
+						#printing stuff
+					print "***"
+					print "Dist from center: %f inches" %  dist
+					print "%f ft out from ramp's start" % howfarout
+					if status == 0:
+						fix = "no fix"
+					elif status == 1:
+						fix = "single point"
+					elif status == 2:
+						fix = "DGPS"
+					elif status == 3:
+						fix = "Float RTK"
+					elif status == 4:
+						fix = "fixed RTK"
+					print "Fix : %s  Sattelites : %d" % (fix, sats)
+					print "lat: %.12f  lon: %.12f" % (lat, lon)
+					print "Tilted %.2f degrees to the %s" % (tilt, direction)
+					print "***"
 				 	
 	except KeyboardInterrupt:
 		pass
