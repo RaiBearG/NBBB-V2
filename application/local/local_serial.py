@@ -70,6 +70,9 @@ def main():
 				sats = int(msg[(commas[2]+2):(commas[3])])
 			
 				imu = int(msg[(commas[3]+2):-2])
+				
+				tilt = float(abs(imu/70.0))
+				
 
 				
 				linepoint = find_point(m, b, lon, lat)
@@ -80,7 +83,14 @@ def main():
 				howfarout = abs(pow(dist,2)-pow(howfarout,2))
 				howfarout = (math.sqrt(howfarout))/12
 
-				
+				tilterror = height * math.tan(tilt*math.pi/180.0) * 12
+				print tilterror
+				if imu<0:
+					direction = 'right'
+					dist = dist - tilterror
+				else:
+					direction = 'left'
+					dist = dist + tilterror
 					#printing stuff
 				print "***"
 				print "Dist from center: %f inches" %  dist
@@ -97,6 +107,7 @@ def main():
 					fix = "fixed RTK"
 				print "Fix : %s  Sattelites : %d" % (fix, sats)
 				print "lat: %f  lon: %f" % (lat, lon)
+				print "Tilted %.2f degrees to the %s" % (tilt, direction)
 				print "***"
 				 	
 	except KeyboardInterrupt:
