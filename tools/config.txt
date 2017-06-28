@@ -2,17 +2,16 @@
 
 20:e4:16:00:0e:a6
 
+line parameters:
+
+m = 2.347939316690  
+b = 335.732012260547
 
 marker coordinates : 
 
-lat : 48.015519022615955, -122.53999879148671
+lat : 48.01540638490709
 
-lon : 
-
-
-down the ramp coordinates ( 3 ft)
-lat :
-lon : 
+lon : -122.540051422241
 
 laptop ip : 10.3.33.86
 
@@ -34,5 +33,5 @@ base coordinates :
 
 latitude : 48.0157122843
 longitude : -122.540528966
-height : -14.2248752791
+height : -14.224875
 

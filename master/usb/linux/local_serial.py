@@ -6,8 +6,8 @@ baud_rate = 115200
 
 
 #m and b values of front yard found using tools/line_parameters.py
-m = 2.2781413734
-b = 327.1789596583
+m = 2.347939316690
+b = 335.732012260547
 #height = 0 #height of the device in ft 
 
 
