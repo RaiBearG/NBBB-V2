@@ -1,37 +1,27 @@
-66.235.67.5
-
+Rpi mac address
 20:e4:16:00:0e:a6
 
 line parameters:
-
 m = 2.347939316690  
 b = 335.732012260547
 
 marker coordinates : 
-
 lat : 48.01540638490709
-
 lon : -122.540051422241
 
-laptop ip : 10.3.33.86
-
-rpi ip : 10.3.33.16
-
+rpi ip : 10.3.33.75
 
 ssid : NBBB
 password : N!CH0L$B04T$!
 
-ssid NBBB-INTERNET-ONLY
+ssid : NBBB-INTERNET-ONLY
 password : nicholsboats
 
-
 command to list all devices on network 
-
 sudo arp-scan --interface=wlp3s0f0 --localnet
 
 base coordinates : 
-
-latitude : 48.0157122843
-longitude : -122.540528966
-height : -14.224875
+latitude : 48.015677296
+longitude : -122.540643779
+height : -9.60330908736
 
