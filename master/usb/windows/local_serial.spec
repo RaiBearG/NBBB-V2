@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['local_serial.py'],
-             pathex=['C:\\Users\\gohal\\Desktop\\NBBB-master\\application\\local\\windows'],
+             pathex=['C:\\Users\\gohal\\Desktop\\NBBB-master\\master\\usb\\windows'],
              binaries=[],
              datas=[],
              hiddenimports=[],
